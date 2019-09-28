@@ -1,0 +1,130 @@
+# pin constraints
+NET "clk" TNM_NET = sys_clk_pin;
+TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100000 kHz;
+NET "clk" LOC=D11 |	IOSTANDARD = "LVCMOS33"; 
+
+
+
+## AUDIO
+NET AUD_DACDAT		LOC=A5	| IOSTANDARD=LVCMOS33; 	#Bank = 0, pin name = IO_L2N_0,	Sch name = AC-PBDAT
+NET AUD_DACLRCK 	LOC=D6	| IOSTANDARD=LVCMOS33; 	#Bank = 0, pin name = IO_L3P_0,	Sch name = AC-PBLRC #DAC Playback sampling rate clock
+NET AUD_ADCDAT		LOC=C6	| IOSTANDARD=LVCMOS33;	#Bank = 0, pin name = IO_L3N_0,	Sch name = AC-RECDAT
+NET AUD_ADCLRCK	LOC=B6	| IOSTANDARD=LVCMOS33;	#Bank = 0, pin name = IO_L4P_0,	Sch name = AC-RECLRC #ADC Recording sampling rate clock
+
+NET AUD_MUTE	LOC=A15	 | IOSTANDARD=LVCMOS33; #Bank = 0, pin name = IO_L62N_VREF_0,	Sch name = AC-MUTE	# mute
+NET AUD_XCK		LOC=A6 	 | IOSTANDARD=LVCMOS33;	#Bank = 0, pin name = IO_L4N_0,	Sch name = AC-MCLK
+NET AUD_BCLK 	LOC=B12 | IOSTANDARD=LVCMOS33;	#Bank = 0, pin name = IO_L36P_GCLK15_0,	Sch name = AC-BCLK
+
+NET AUD_I2C_SDAT LOC=C5 |	PULLUP	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L1N_VREF_0,	Sch name = SCL
+NET AUD_I2C_SCLK LOC=A4 |	PULLUP	|	IOSTANDARD=LVCMOS33;		#Bank = 0, pin name = IO_L2P_0,			Sch name = SDA
+
+# SWITCHES
+NET "switches[0]"	LOC= U4	|	IOSTANDARD=LVCMOS18;		#Bank = 3, pin name = IO_L18P_3,	Sch name = SW1
+NET "switches[1]"	LOC= V3		|	IOSTANDARD=LVCMOS18;		#Bank = 3, pin name = IO_L18N_3,	Sch name = SW2
+NET "switches[2]"	LOC= P4	|	IOSTANDARD=LVCMOS18;		#Bank = 3, pin name = IO_L21P_3,	Sch name = SW3
+NET "switches[3]"	LOC= R4	|	IOSTANDARD=LVCMOS18;		#Bank = 3, pin name = IO_L21N_3,	Sch name = SW4
+
+# STATUS LEDS
+#NET LED[0] LOC=W3; #ld 0
+#NET LED[1] LOC=Y4; #ld 1
+#NET LED[2] LOC=Y1; #ld 2
+#NET LED[3] LOC=Y3; #ld 3
+#NET LED[4] LOC=AB4;
+#NET LED[5] LOC=W1;
+#NET LED[6] LOC=AB3;
+#NET LED[7] LOC=AA4;
+
+NET STATLED0 LOC=R7; #ld9
+NET STATLED1 LOC=U6; #ld10
+NET STATLED2 LOC=T8; #ld11
+NET STATLED3 LOC=T7; #ld12
+NET STATLED4 LOC=W4; #ld13
+NET LEDRAM		LOC=U8; #ld14
+
+
+NET "rs232_tx" LOC=T20;
+NET "rs232_rx" LOC=T19;
+NET "reset" LOC=V5;
+
+
+#NET BTN LOC=AB9; //stop recording song with button 3
+NET volup LOC=E6; //reset ram with button 
+NET voldown LOC=D5; //reset ram with button 1
+
+# Memory Controller Timing/Perf Constraints 
+CONFIG MCB_PERFORMANCE = STANDARD;
+
+# DDR2 Differential CLK
+NET "hw_ram_ck"		LOC = "F2" | IOSTANDARD = DIFF_SSTL2_II;
+NET "hw_ram_ckn"		LOC = "F1" | IOSTANDARD = DIFF_SSTL2_II;
+
+# DDR2 Control
+NET "hw_ram_cke"		LOC = "J6"; 
+NET "hw_ram_casn"		LOC = "P3";
+NET "hw_ram_ldm"		LOC = "H1";
+NET "hw_ram_odt"		LOC = "M3";
+NET "hw_ram_rasn"		LOC = "N4";
+NET "hw_ram_udm"		LOC = "H2";
+NET "hw_ram_wen"		LOC = "D2";
+
+# DDR2 Differential Control Signals
+NET "hw_ram_ldqs_n" LOC = "L1"| IOSTANDARD = DIFF_SSTL2_II;
+NET "hw_ram_ldqs_p" LOC = "L3"| IOSTANDARD = DIFF_SSTL2_II;
+NET "hw_ram_udqs_n" LOC = "T1"| IOSTANDARD = DIFF_SSTL2_II;
+NET "hw_ram_udqs_p" LOC = "T2"| IOSTANDARD = DIFF_SSTL2_II;
+
+# DDR2 Data
+NET "hw_ram_dq[0]" LOC = "N3";
+NET "hw_ram_dq[1]" LOC = "N1";
+NET "hw_ram_dq[2]" LOC = "M2";
+NET "hw_ram_dq[3]" LOC = "M1";
+NET "hw_ram_dq[4]" LOC = "J3";
+NET "hw_ram_dq[5]" LOC = "J1";
+NET "hw_ram_dq[6]" LOC = "K2";
+NET "hw_ram_dq[7]" LOC = "K1";
+NET "hw_ram_dq[8]" LOC = "P2";
+NET "hw_ram_dq[9]" LOC = "P1";
+NET "hw_ram_dq[10]" LOC = "R3";
+NET "hw_ram_dq[11]" LOC = "R1";
+NET "hw_ram_dq[12]" LOC = "U3";
+NET "hw_ram_dq[13]" LOC = "U1";
+NET "hw_ram_dq[14]" LOC = "V2";
+NET "hw_ram_dq[15]" LOC = "V1";
+NET "hw_ram_dq[*]" IOSTANDARD = SSTL2_II;
+NET "hw_ram_dq[*]" IN_TERM = NONE; 
+
+# DDR2 Address
+NET "hw_ram_ad[0]" LOC = "M5";
+NET "hw_ram_ad[1]" LOC = "L4";
+NET "hw_ram_ad[2]" LOC = "K3";
+NET "hw_ram_ad[3]" LOC = "M4";
+NET "hw_ram_ad[4]" LOC = "K5";
+NET "hw_ram_ad[5]" LOC = "G3";
+NET "hw_ram_ad[6]" LOC = "G1";
+NET "hw_ram_ad[7]" LOC = "K4";
+NET "hw_ram_ad[8]" LOC = "C3";
+NET "hw_ram_ad[9]" LOC = "C1";
+NET "hw_ram_ad[10]" LOC = "K6";
+NET "hw_ram_ad[11]" LOC = "B1";
+NET "hw_ram_ad[12]" LOC = "J4";
+NET "hw_ram_ad[*]" IOSTANDARD = SSTL2_II;
+
+# DDR2 Bank Select Pins
+NET "hw_ram_ba[0]" LOC = "E3";
+NET "hw_ram_ba[1]" LOC = "E1";
+NET "hw_ram_ba[2]" LOC = "D1";
+NET "hw_ram_ba[*]" IOSTANDARD = SSTL2_II;
+
+
+# Uncomment next FOUR lines if NOT using ram black box
+NET "*/memc3_wrapper_inst/mcb_ui_top_inst/mcb_raw_wrapper_inst/selfrefresh_mcb_mode" TIG;
+NET "*/c?_pll_lock" TIG;
+INST "*/memc?_wrapper_inst/mcb_ui_top_inst/mcb_raw_wrapper_inst/gen_term_calib.mcb_soft_calibration_top_inst/mcb_soft_calibration_inst/DONE_SOFTANDHARD_CAL*" TIG;
+NET "*/memc?_wrapper_inst/mcb_ui_top_inst/mcb_raw_wrapper_inst/gen_term_calib.mcb_soft_calibration_top_inst/mcb_soft_calibration_inst/CKE_Train" TIG; ##This path exists for DDR2 only
+#PIN "RAMRapper/u_memory_interface/memc3_infrastructure_inst/U_BUFG_CLK0.O"
+#  CLOCK_DEDICATED_ROUTE = FALSE;
+#PIN "wizard/clkout1_buf.O" CLOCK_DEDICATED_ROUTE = FALSE;
+PIN "RAMRapper/u_memory_interface/memc3_infrastructure_inst/U_BUFG_CLK0.O"
+   CLOCK_DEDICATED_ROUTE = FALSE;
+
+PIN "myclock/clkout1_buf.O" CLOCK_DEDICATED_ROUTE = FALSE;

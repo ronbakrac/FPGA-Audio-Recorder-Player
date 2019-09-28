@@ -1,0 +1,751 @@
+;================================================================
+; Port address definitions...
+;================================================================
+
+CONSTANT switches         , 00    ; Switch read port
+CONSTANT leds	        , 01    ; LED write port
+CONSTANT uart_data_rx     , 02    ; UART receive read port
+CONSTANT uart_data_tx     , 03    ; UART transmit write port
+CONSTANT data_present     , 04    ; UART stat read port, lsb
+CONSTANT buffer_full      , 05    ; UART stat read port, lsb
+CONSTANT fsm              , 06
+CONSTANT deletedall       , 07
+
+CONSTANT all_clear        , 00    ; define all clear
+CONSTANT all_set          , FF    ; define all set
+
+CONSTANT ascii_NUL        , 00    ; ascii code (null character)
+CONSTANT ascii_SOH        , 01    ; ascii code (start of header)
+CONSTANT ascii_STX        , 02    ; ascii code (start of text)
+CONSTANT ascii_ETX        , 03    ; ascii code (end of text)
+CONSTANT ascii_EOT        , 04    ; ascii code (end of xmit)
+CONSTANT ascii_ENQ        , 05    ; ascii code (enquiry)
+CONSTANT ascii_ACK        , 06    ; ascii code (acknowledge)
+CONSTANT ascii_BEL        , 07    ; ascii code (bell)
+CONSTANT ascii_BS         , 08    ; ascii code (backspace)
+CONSTANT ascii_HT         , 09    ; ascii code (horiz tab)
+CONSTANT ascii_LF         , 0A    ; ascii code (line feed)
+CONSTANT ascii_VT         , 0B    ; ascii code (vert tab)
+CONSTANT ascii_FF         , 0C    ; ascii code (form feed)
+CONSTANT ascii_CR         , 0D    ; ascii code (carriage return)
+CONSTANT ascii_SO         , 0E    ; ascii code (shift out)
+CONSTANT ascii_SI         , 0F    ; ascii code (shift in)
+
+CONSTANT ascii_DLE        , 10    ; ascii code (data link esc)
+CONSTANT ascii_DC1        , 11    ; ascii code (device ctrl 1, xon)
+CONSTANT ascii_DC2        , 12    ; ascii code (device ctrl 2)
+CONSTANT ascii_DC3        , 13    ; ascii code (device ctrl 3, xoff)
+CONSTANT ascii_DC4        , 14    ; ascii code (device ctrl 4)
+CONSTANT ascii_NAK        , 15    ; ascii code (negative acknowledge)
+CONSTANT ascii_SYN        , 16    ; ascii code (sync idle)
+CONSTANT ascii_ETB        , 17    ; ascii code (end xmit block)
+CONSTANT ascii_CAN        , 18    ; ascii code (cancel)
+CONSTANT ascii_EM         , 19    ; ascii code (end of medium)
+CONSTANT ascii_SUB        , 1A    ; ascii code (substitute)
+CONSTANT ascii_ESC        , 1B    ; ascii code (escape)
+CONSTANT ascii_FS         , 1C    ; ascii code (file separator)
+CONSTANT ascii_GS         , 1D    ; ascii code (group separator)
+CONSTANT ascii_RS         , 1E    ; ascii code (record separator)
+CONSTANT ascii_US         , 1F    ; ascii code (unit space)
+
+CONSTANT ascii_SPACE      , 20    ; ascii code
+CONSTANT ascii_EXCLAIM    , 21    ; ascii code
+CONSTANT ascii_DBLQUOT    , 22    ; ascii code
+CONSTANT ascii_NUMSIGN    , 23    ; ascii code
+CONSTANT ascii_DOLLAR     , 24    ; ascii code
+CONSTANT ascii_PERCENT    , 25    ; ascii code
+CONSTANT ascii_AMP        , 26    ; ascii code
+CONSTANT ascii_SINQUOT    , 27    ; ascii code
+CONSTANT ascii_LPAREN     , 28    ; ascii code
+CONSTANT ascii_RPAREN     , 29    ; ascii code
+CONSTANT ascii_ASTERISK   , 2A    ; ascii code
+CONSTANT ascii_PLUS       , 2B    ; ascii code
+CONSTANT ascii_COMMA      , 2C    ; ascii code
+CONSTANT ascii_MINUS      , 2D    ; ascii code
+CONSTANT ascii_PERIOD     , 2E    ; ascii code
+CONSTANT ascii_FWDSLASH   , 2F    ; ascii code
+
+CONSTANT ascii_0          , 30    ; ascii code
+CONSTANT ascii_1          , 31    ; ascii code
+CONSTANT ascii_2          , 32    ; ascii code
+CONSTANT ascii_3          , 33    ; ascii code
+CONSTANT ascii_4          , 34    ; ascii code
+CONSTANT ascii_5          , 35    ; ascii code
+CONSTANT ascii_6          , 36    ; ascii code
+CONSTANT ascii_7          , 37    ; ascii code
+CONSTANT ascii_8          , 38    ; ascii code
+CONSTANT ascii_9          , 39    ; ascii code
+CONSTANT ascii_COLON      , 3A    ; ascii code
+CONSTANT ascii_SEMI       , 3B    ; ascii code
+CONSTANT ascii_LESS       , 3C    ; ascii code
+CONSTANT ascii_EQUAL      , 3D    ; ascii code
+CONSTANT ascii_GREATER    , 3E    ; ascii code
+CONSTANT ascii_QUESTION   , 3F    ; ascii code
+
+CONSTANT ascii_CIRCAT     , 40    ; ascii code
+CONSTANT ascii_A          , 41    ; ascii code
+CONSTANT ascii_B          , 42    ; ascii code
+CONSTANT ascii_C          , 43    ; ascii code
+CONSTANT ascii_D          , 44    ; ascii code
+CONSTANT ascii_E          , 45    ; ascii code
+CONSTANT ascii_F          , 46    ; ascii code
+CONSTANT ascii_G          , 47    ; ascii code
+CONSTANT ascii_H          , 48    ; ascii code
+CONSTANT ascii_I          , 49    ; ascii code
+CONSTANT ascii_J          , 4A    ; ascii code
+CONSTANT ascii_K          , 4B    ; ascii code
+CONSTANT ascii_L          , 4C    ; ascii code
+CONSTANT ascii_M          , 4D    ; ascii code
+CONSTANT ascii_N          , 4E    ; ascii code
+CONSTANT ascii_O          , 4F    ; ascii code
+
+CONSTANT ascii_P          , 50    ; ascii code
+CONSTANT ascii_Q          , 51    ; ascii code
+CONSTANT ascii_R          , 52    ; ascii code
+CONSTANT ascii_S          , 53    ; ascii code
+CONSTANT ascii_T          , 54    ; ascii code
+CONSTANT ascii_U          , 55    ; ascii code
+CONSTANT ascii_V          , 56    ; ascii code
+CONSTANT ascii_W          , 57    ; ascii code
+CONSTANT ascii_X          , 58    ; ascii code
+CONSTANT ascii_Y          , 59    ; ascii code
+CONSTANT ascii_Z          , 5A    ; ascii code
+CONSTANT ascii_LBKT       , 5B    ; ascii code
+CONSTANT ascii_BKSLASH    , 5C    ; ascii code
+CONSTANT ascii_RBKT       , 5D    ; ascii code
+CONSTANT ascii_CARET      , 5E    ; ascii code
+CONSTANT ascii_UNDER      , 5F    ; ascii code
+
+CONSTANT ascii_TICK       , 60    ; ascii code
+CONSTANT ascii_a          , 61    ; ascii code
+CONSTANT ascii_b          , 62    ; ascii code
+CONSTANT ascii_c          , 63    ; ascii code
+CONSTANT ascii_d          , 64    ; ascii code
+CONSTANT ascii_e          , 65    ; ascii code
+CONSTANT ascii_f          , 66    ; ascii code
+CONSTANT ascii_g          , 67    ; ascii code
+CONSTANT ascii_h          , 68    ; ascii code
+CONSTANT ascii_i          , 69    ; ascii code
+CONSTANT ascii_j          , 6A    ; ascii code
+CONSTANT ascii_k          , 6B    ; ascii code
+CONSTANT ascii_l          , 6C    ; ascii code
+CONSTANT ascii_m          , 6D    ; ascii code
+CONSTANT ascii_n          , 6E    ; ascii code
+CONSTANT ascii_o          , 6F    ; ascii code
+
+CONSTANT ascii_p          , 70    ; ascii code
+CONSTANT ascii_q          , 71    ; ascii code
+CONSTANT ascii_r          , 72    ; ascii code
+CONSTANT ascii_s          , 73    ; ascii code
+CONSTANT ascii_t          , 74    ; ascii code
+CONSTANT ascii_u          , 75    ; ascii code
+CONSTANT ascii_v          , 76    ; ascii code
+CONSTANT ascii_w          , 77    ; ascii code
+CONSTANT ascii_x          , 78    ; ascii code
+CONSTANT ascii_y          , 79    ; ascii code
+CONSTANT ascii_z          , 7A    ; ascii code
+CONSTANT ascii_LBRACE     , 7B    ; ascii code
+CONSTANT ascii_VBAR       , 7C    ; ascii code
+CONSTANT ascii_RBRACE     , 7D    ; ascii code
+CONSTANT ascii_TILDE      , 7E    ; ascii code
+CONSTANT ascii_DEL        , 7F    ; ascii code
+
+
+
+NAMEREG S0, cur_char		  
+NAMEREG S1, cur_char_addr	  
+NAMEREG S2, max_char
+NAMEREG S3, buffer_full_in
+NAMEREG S4, uart_data_rx_in
+NAMEREG S5, data_present_in
+NAMEREG S6, out_value
+NAMEREG S7, pp
+	  
+;NAMEREG S4, delete_all_ack
+;NAMEREG S5, volume_control
+;NAMEREG S9, track_number
+;NAMEREG SA, playreg
+;NAMEREG SB, substate
+
+
+start:
+    xor cur_char, cur_char 
+    load cur_char, ascii_1        ;"1"
+    store cur_char, 00
+    load cur_char, ascii_PERIOD   ;"."
+    store cur_char, 01
+    load cur_char, ascii_RPAREN   ;")"
+    store cur_char, 02
+    load cur_char, ascii_SPACE    ;" "
+    store cur_char, 03
+    load cur_char, ascii_P
+    store cur_char, 04
+    load cur_char, ascii_l
+    store cur_char, 05
+    load cur_char, ascii_a
+    store cur_char, 06
+    load cur_char, ascii_y
+    store cur_char, 07
+    load cur_char, ascii_SPACE
+    store cur_char, 08
+    load cur_char, ascii_A
+    store cur_char, 09
+    load cur_char, ascii_SPACE
+    store cur_char, 0A
+    load cur_char, ascii_m
+    store cur_char, 0B
+    load cur_char, ascii_e
+    store cur_char, 0C
+    load cur_char, ascii_s
+    store cur_char, 0D
+    load cur_char, ascii_s
+    store cur_char, 0E
+    load cur_char, ascii_a
+    store cur_char, 0F
+    load cur_char, ascii_g
+    store cur_char, 10
+    load cur_char, ascii_e
+    store cur_char, 11
+    load cur_char, ascii_SPACE
+    store cur_char, 12
+    load cur_char, ascii_CR
+    store cur_char, 13
+    load cur_char, ascii_LF
+    store cur_char, 14
+
+    load cur_char, ascii_2
+    store cur_char, 15
+    load cur_char, ascii_PERIOD
+    store cur_char, 16
+    load cur_char, ascii_RPAREN
+    store cur_char, 17
+    load cur_char, ascii_SPACE
+    store cur_char, 18
+    load cur_char, ascii_R
+    store cur_char, 19
+    load cur_char, ascii_e
+    store cur_char, 1A
+    load cur_char, ascii_c
+    store cur_char, 1B
+    load cur_char, ascii_o
+    store cur_char, 1C
+    load cur_char, ascii_r
+    store cur_char, 1D
+    load cur_char, ascii_d
+    store cur_char, 1E
+    load cur_char, ascii_SPACE
+    store cur_char, 1F
+    load cur_char, ascii_a
+    store cur_char, 20
+    load cur_char, ascii_SPACE
+    store cur_char, 21
+    load cur_char, ascii_m
+    store cur_char, 22
+    load cur_char, ascii_e
+    store cur_char, 23
+    load cur_char, ascii_s
+    store cur_char, 24
+    load cur_char, ascii_s
+    store cur_char, 25
+    load cur_char, ascii_a
+    store cur_char, 26
+    load cur_char, ascii_g
+    store cur_char, 27
+    load cur_char, ascii_e
+    store cur_char, 28
+    load cur_char, ascii_SPACE
+    store cur_char, 29
+    load cur_char, ascii_CR
+    store cur_char, 2A
+    load cur_char, ascii_LF
+    store cur_char, 2B
+
+    load max_char, 2C
+    CALL SENDMENU
+
+    xor cur_char, cur_char
+    load cur_char, ascii_3       ;
+    store cur_char, 00
+    load cur_char, ascii_PERIOD   ;
+    store cur_char, 01
+    load cur_char, ascii_RPAREN   ;
+    store cur_char, 02
+    load cur_char, ascii_SPACE    ;
+    store cur_char, 03
+    load cur_char, ascii_D
+    store cur_char, 04
+    load cur_char, ascii_e
+    store cur_char, 05
+    load cur_char, ascii_l
+    store cur_char, 06
+    load cur_char, ascii_e
+    store cur_char, 07
+    load cur_char, ascii_t
+    store cur_char, 08
+    load cur_char, ascii_e
+    store cur_char, 09
+    load cur_char, ascii_SPACE
+    store cur_char, 0A
+    load cur_char, ascii_a
+    store cur_char, 0B
+    load cur_char, ascii_SPACE
+    store cur_char, 0C
+    load cur_char, ascii_m
+    store cur_char, 0D
+    load cur_char, ascii_e
+    store cur_char, 0E
+    load cur_char, ascii_s
+    store cur_char, 0F
+    load cur_char, ascii_s
+    store cur_char, 10
+    load cur_char, ascii_a
+    store cur_char, 11
+    load cur_char, ascii_g
+    store cur_char, 12
+    load cur_char, ascii_e
+    store cur_char, 13
+    load cur_char, ascii_CR
+    store cur_char, 14
+    load cur_char, ascii_LF
+    store cur_char, 15
+
+    load cur_char, ascii_4
+    store cur_char, 16
+    load cur_char, ascii_PERIOD
+    store cur_char, 17
+    load cur_char, ascii_RPAREN
+    store cur_char, 18
+    load cur_char, ascii_SPACE
+    store cur_char, 19
+    load cur_char, ascii_D
+    store cur_char, 1A
+    load cur_char, ascii_e
+    store cur_char, 1B
+    load cur_char, ascii_l
+    store cur_char, 1C
+    load cur_char, ascii_e
+    store cur_char, 1D
+    load cur_char, ascii_t
+    store cur_char, 1E
+    load cur_char, ascii_e
+    store cur_char, 1F
+    load cur_char, ascii_SPACE
+    store cur_char, 20
+    load cur_char, ascii_a
+    store cur_char, 21
+    load cur_char, ascii_l
+    store cur_char, 22
+    load cur_char, ascii_l
+    store cur_char, 23
+    load cur_char, ascii_SPACE
+    store cur_char, 24
+    load cur_char, ascii_m
+    store cur_char, 25
+    load cur_char, ascii_e
+    store cur_char, 26
+    load cur_char, ascii_s
+    store cur_char, 27
+    load cur_char, ascii_s
+    store cur_char, 28
+    load cur_char, ascii_a
+    store cur_char, 29
+    load cur_char, ascii_g
+    store cur_char, 2A
+    load cur_char, ascii_e
+    store cur_char, 2B
+    load cur_char, ascii_s
+    store cur_char, 2C
+    load cur_char, ascii_CR
+    store cur_char, 2D
+    load cur_char, ascii_LF
+    store cur_char, 2E
+
+    load max_char, 2F
+    CALL SENDMENU
+
+    xor cur_char, cur_char
+    load cur_char, ascii_5       ;
+    store cur_char, 00
+    load cur_char, ascii_PERIOD   ;
+    store cur_char, 01
+    load cur_char, ascii_RPAREN   ;
+    store cur_char, 02
+    load cur_char, ascii_SPACE    ;
+    store cur_char, 03
+    load cur_char, ascii_V
+    store cur_char, 04
+    load cur_char, ascii_o
+    store cur_char, 05
+    load cur_char, ascii_l
+    store cur_char, 06
+    load cur_char, ascii_u
+    store cur_char, 07
+    load cur_char, ascii_m
+    store cur_char, 08
+    load cur_char, ascii_e
+    store cur_char, 09
+    load cur_char, ascii_SPACE
+    store cur_char, 0A
+    load cur_char, ascii_c
+    store cur_char, 0B
+    load cur_char, ascii_o
+    store cur_char, 0C
+    load cur_char, ascii_n
+    store cur_char, 0D
+    load cur_char, ascii_t
+    store cur_char, 0E
+    load cur_char, ascii_r
+    store cur_char, 0F
+    load cur_char, ascii_o
+    store cur_char, 10
+    load cur_char, ascii_l
+    store cur_char, 11
+    load cur_char, ascii_CR
+    store cur_char, 12
+    load cur_char, ascii_LF
+    store cur_char, 13
+
+    load max_char, 14
+    CALL SENDMENU
+    jump await_input
+
+recordmenu:
+    xor cur_char, cur_char
+    load cur_char, ascii_SPACE
+    store cur_char, 00
+    load cur_char, ascii_R       
+    store cur_char, 01
+    load cur_char, ascii_e
+    store cur_char, 02
+    load cur_char, ascii_c
+    store cur_char, 03
+    load cur_char, ascii_o
+    store cur_char, 04
+    load cur_char, ascii_r
+    store cur_char, 05
+    load cur_char, ascii_d
+    store cur_char, 06
+    load cur_char, ascii_i
+    store cur_char, 07
+    load cur_char, ascii_n
+    store cur_char, 08
+    load cur_char, ascii_g
+    store cur_char, 09
+    load cur_char, ascii_PERIOD
+    store cur_char, 0A
+    load cur_char, ascii_CR
+    store cur_char, 0B
+    load cur_char, ascii_LF
+    store cur_char, 0C
+    load cur_char, ascii_1
+    store cur_char, 0D
+    load cur_char, ascii_PERIOD
+    store cur_char, 0E
+    load cur_char, ascii_RPAREN
+    store cur_char, 0F
+    load cur_char, ascii_SPACE
+    store cur_char, 10
+    load cur_char, ascii_S
+    store cur_char, 11
+    load cur_char, ascii_t
+    store cur_char, 12
+    load cur_char, ascii_o
+    store cur_char, 13
+    load cur_char, ascii_p
+    store cur_char, 14
+    load cur_char, ascii_CR
+    store cur_char, 15
+    load cur_char, ascii_LF
+    store cur_char, 16
+
+    load max_char, 17
+    CALL SENDMENU
+    return
+
+
+playmenu:
+    xor cur_char, cur_char
+    load cur_char, ascii_SPACE     
+    store cur_char, 00
+    load cur_char, ascii_P       
+    store cur_char, 01
+    load cur_char, ascii_l
+    store cur_char, 02
+    load cur_char, ascii_a
+    store cur_char, 03
+    load cur_char, ascii_y
+    store cur_char, 04
+    load cur_char, ascii_i
+    store cur_char, 05
+    load cur_char, ascii_n
+    store cur_char, 06
+    load cur_char, ascii_g
+    store cur_char, 07
+    load cur_char, ascii_CR
+    store cur_char, 08
+    load cur_char, ascii_LF
+    store cur_char, 09
+    load cur_char, ascii_1
+    store cur_char, 0A
+    load cur_char, ascii_PERIOD
+    store cur_char, 0B
+    load cur_char, ascii_RPAREN
+    store cur_char, 0C
+    load cur_char, ascii_SPACE
+    store cur_char, 0D
+    load cur_char, ascii_S
+    store cur_char, 0E
+    load cur_char, ascii_t
+    store cur_char, 0F
+    load cur_char, ascii_o
+    store cur_char, 10
+    load cur_char, ascii_p
+    store cur_char, 11
+    load cur_char, ascii_CR
+    store cur_char, 12
+    load cur_char, ascii_LF
+    store cur_char, 13
+  load cur_char, ascii_2
+    store cur_char, 14
+    load cur_char, ascii_PERIOD
+    store cur_char, 15
+    load cur_char, ascii_RPAREN
+    store cur_char, 16
+    load cur_char, ascii_SPACE
+    store cur_char, 17
+    load cur_char, ascii_P
+    store cur_char, 18
+    load cur_char, ascii_a
+    store cur_char, 19
+    load cur_char, ascii_u
+    store cur_char, 1A
+    load cur_char, ascii_s
+    store cur_char, 1B
+    load cur_char, ascii_e
+    store cur_char, 1C
+    load cur_char, ascii_CR
+    store cur_char, 1D
+    load cur_char, ascii_LF
+    store cur_char, 1E
+
+
+    load max_char, 1F
+    CALL SENDMENU
+    return
+
+
+deletestart:
+    xor cur_char, cur_char
+    load cur_char, ascii_SPACE
+    store cur_char, 00
+    load cur_char, ascii_D      
+    store cur_char, 01
+    load cur_char, ascii_e   
+    store cur_char, 02
+    load cur_char, ascii_l  
+    store cur_char, 03
+    load cur_char, ascii_e    
+    store cur_char, 04
+    load cur_char, ascii_t
+    store cur_char, 05
+    load cur_char, ascii_e
+    store cur_char, 06
+    load cur_char, ascii_d
+    store cur_char, 07
+    load cur_char, ascii_SPACE
+    store cur_char, 08
+    load cur_char, ascii_a
+    store cur_char, 09
+    load cur_char, ascii_l
+    store cur_char, 0A
+    load cur_char, ascii_l
+    store cur_char, 0B
+    load cur_char, ascii_CR
+    store cur_char, 0C
+    load cur_char, ascii_LF
+    store cur_char, 0D
+    load cur_char, ascii_CR
+    store cur_char, 0E
+    load cur_char, ascii_LF
+    store cur_char, 0F
+
+    load max_char, 10
+    CALL SENDMENU
+    jump start
+
+
+
+    await_input:
+        xor uart_data_rx_in, uart_data_rx_in
+        xor data_present_in, data_present_in
+        input data_present_in, data_present
+        input uart_data_rx_in, uart_data_rx
+        compare data_present_in, 01
+        jump nz, await_input
+
+        compare uart_data_rx_in, ascii_1
+        jump z, play_message
+        compare uart_data_rx_in, ascii_2
+        jump z, record_message
+        compare uart_data_rx_in, ascii_3
+        jump z, delete_message
+        compare uart_data_rx_in, ascii_4
+        jump z, delete_all_messages
+        compare uart_data_rx_in, ascii_5
+        jump z, volume
+        jump await_input
+
+    
+
+
+    recordinput:
+        xor cur_char, cur_char
+        xor cur_char_addr, cur_char_addr
+        input data_present_in, data_present
+        input uart_data_rx_in, uart_data_rx
+        compare data_present_in, 01
+        jump nz, recordinput
+
+        compare uart_data_rx_in, ascii_1
+        jump z, stoprecord
+        jump recordinput
+
+
+
+    playinput:
+        xor cur_char, cur_char
+        xor cur_char_addr, cur_char_addr
+        input data_present_in, data_present
+        input uart_data_rx_in, uart_data_rx
+        compare data_present_in, 01
+        jump nz, playinput
+
+        compare uart_data_rx_in, ascii_1
+        jump z, stop_playing
+        compare uart_data_rx_in, ascii_2
+        jump z, pauseplay
+        jump playinput
+        
+
+
+
+
+    play_message:
+        load out_value, 00
+        output out_value, fsm
+        CALL CLEARMENU
+        CALL playmenu
+        input pp, 00
+        jump playinput
+
+
+    record_message:
+        load out_value, 01
+        output out_value, fsm
+        ;recording submenu, print out some stuff + let them know if cant record anymore
+        CALL CLEARMENU
+        CALL recordmenu
+        jump recordinput
+   
+
+    delete_message:
+        load out_value, 02
+        output out_value, fsm
+        jump await_input
+
+    delete_all_messages:
+        load out_value, 04
+        output out_value, fsm
+        CALL CLEARMENU
+        CALL del_all_confirm
+        jump deletestart
+
+        
+    volume:
+        load out_value, 05
+        output out_value, fsm
+        jump await_input
+
+
+
+
+
+
+
+    stop_playing:
+        load pp, 00
+        load out_value, FF
+        output out_value, fsm
+        CALL CLEARMENU
+        jump start
+
+    
+    pauseplay:
+        xor pp, FF
+        compare pp, FF
+        jump z, pauseaudio
+        jump playaudio
+
+        pauseaudio:
+            load out_value, 03
+            output out_value, fsm
+            jump playinput
+
+        playaudio:
+            load out_value, 00
+            output out_value, fsm
+            jump playinput
+
+
+
+
+
+    stoprecord:
+        load out_value, FF
+        output out_value, fsm
+        CALL CLEARMENU
+        jump start
+
+
+
+
+
+    del_all_confirm:
+        xor cur_char, cur_char
+        input cur_char, deletedall 
+        compare cur_char, 01
+        jump nz, del_all_confirm
+        return 
+
+
+
+
+    CLEARMENU:
+        load cur_char, ascii_FF       
+        store cur_char, 00
+        load cur_char, ascii_ESC  
+        store cur_char, 01
+
+        load max_char, 03
+        CALL SENDMENU
+        return
+
+
+
+    SENDMENU:
+        xor cur_char, cur_char
+        xor cur_char_addr, cur_char_addr
+    bufferfull:
+        xor buffer_full_in, buffer_full_in
+    next_letter:
+        input buffer_full_in, buffer_full
+        compare buffer_full_in, 01
+        jump z, bufferfull
+        fetch cur_char, (cur_char_addr)
+        add cur_char_addr, 01
+        output cur_char, uart_data_tx
+        compare cur_char_addr, max_char
+        jump nz, next_letter
+        xor max_char, max_char
+        return
+
